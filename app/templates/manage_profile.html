@@ -1,0 +1,46 @@
+{% extends "employer_base.html" %}
+
+{% block content %}
+
+<div style="width:400px; margin:auto; margin-top:40px; background:white; padding:20px; border-radius:10px; box-shadow:0px 0px 10px #ccc; text-align:center;">
+
+    <h2 style="color:#2c6bed;">Manage Profile</h2>
+
+    <!-- ✅ PROFILE IMAGE -->
+    {% if user.image %}
+        <img src="{{ url_for('static', filename='uploads/' + user.image) }}"
+             width="120" height="120"
+             style="border-radius:50%; border:3px solid #2c6bed;">
+    {% else %}
+        <img src="https://via.placeholder.com/120"
+             style="border-radius:50%; border:3px solid #2c6bed;">
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" style="margin-top:20px;">
+
+        <!-- PHONE -->
+        <label><b>Phone Number</b></label><br>
+        <input type="text" name="phone" value="{{ user.phone }}"
+               style="width:100%; padding:10px; margin-bottom:15px;" required>
+
+        <!-- PASSWORD -->
+        <label><b>New Password (optional)</b></label><br>
+        <input type="password" name="password"
+               style="width:100%; padding:10px; margin-bottom:15px;">
+
+        <!-- IMAGE -->
+        <label><b>Change Profile Image</b></label><br>
+        <input type="file" name="image"
+               style="width:100%; padding:10px; margin-bottom:15px;">
+
+        <!-- BUTTON -->
+        <button type="submit"
+                style="width:100%; padding:10px; background:#2c6bed; color:white; border:none;">
+            Update Profile
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

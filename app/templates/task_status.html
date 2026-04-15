@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Progress</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal {
+            width: 350px;
+            margin: 100px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        canvas {
+            margin: 20px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #2c6bed;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="modal">
+
+    <span class="close" onclick="window.history.back()">✖</span>
+
+    <h3>Task Progress</h3>
+
+    <canvas id="progressChart" width="200" height="200"></canvas>
+
+    <h2>{{ progress }}%</h2>
+
+    <form method="POST">
+        <label>Update Completion %</label>
+        <input type="number" name="progress" min="0" max="100" required>
+
+        <button type="submit">Submit Update</button>
+    </form>
+
+</div>
+
+<script>
+    const progress = {{ progress }};
+
+    new Chart(document.getElementById('progressChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'Remaining'],
+            datasets: [{
+                data: [progress, 100 - progress],
+                backgroundColor: ['green', 'red']
+            }]
+        },
+        options: {
+            cutout: '70%'
+        }
+    });
+</script>
+
+</body>
+</html>

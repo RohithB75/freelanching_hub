@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FreelanceHub</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .navbar {
+            background: #2c6bed;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .active {
+            background: #ff4d4d;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">FreelanceHub</div>
+
+    <div class="nav-links">
+        <a href="{{ url_for('main.employee_profile') }}">Profile</a>
+        <a href="{{ url_for('main.view_projects') }}">View Posts</a>
+        <a href="{{ url_for('main.my_tasks') }}">My Tasks</a>
+        <a href="{{ url_for('main.viewresources') }}">Video Resources</a>
+
+        <a href="{{ url_for('main.logout') }}">Logout</a>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

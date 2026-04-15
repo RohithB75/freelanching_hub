@@ -1,0 +1,7 @@
+class Config:
+    SECRET_KEY = ' '
+    
+    MYSQL_HOST = ' '
+    MYSQL_USER = ' '
+    MYSQL_PASSWORD = ' '
+    MYSQL_DB = ' '

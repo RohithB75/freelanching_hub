@@ -1,0 +1,267 @@
+{% extends "employer_base.html" %}
+
+{% block content %}
+
+<style>
+.container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.title {
+    color: #2c6bed;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.desc-box {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.info {
+    margin: 5px 0;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-blue {
+    background: #2c6bed;
+}
+
+.btn-green {
+    background: green;
+}
+
+/* Progress bar */
+.progress-bar {
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.progress-fill {
+    background: #2c6bed;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+</style>
+
+<div class="container">
+
+<h2 style="text-align:center; color:#2c6bed;">Assigned Tasks</h2>
+
+{% if tasks %}
+
+    {% for task in tasks %}
+    <div class="card">
+
+        <!-- TITLE -->
+        <div class="title">{{ task.title }}</div>
+
+        <!-- DESCRIPTION -->
+        <div class="desc-box">
+            {{ task.description }}
+        </div>
+
+        <!-- DETAILS -->
+        <p class="info">📅 <b>Deadline:</b> {{ task.deadline }}</p>
+        <p class="info">🕒 <b>Posted On:</b> {{ task.posted_on }}</p>
+
+        <!-- ATTACHMENT -->
+        {% if task.file %}
+        <p class="info">
+            📎 <b>Attachment:</b> 
+            <a href="{{ url_for('static', filename='uploads/' + task.file) }}" target="_blank">
+                View
+            </a>
+        </p>
+        {% endif %}
+
+        <hr>
+
+        <!-- FREELANCER INFO -->
+        <p class="info">👤 <b>Assigned Freelancer:</b> {{ task.name }}</p>
+        <p class="info">📧 <b>Email:</b> {{ task.email }}</p>
+        <p class="info">📞 <b>Phone:</b> {{ task.phone }}</p>
+        <p class="info">💰 <b>Bid Amount:</b> ₹{{ task.bid_amount }}</p>
+
+        <!-- STATUS -->
+        <p class="info">
+            <b>Status:</b>
+            <span style="
+                padding:5px 10px;
+                border-radius:5px;
+                color:white;
+                background:
+                {% if task.status == 'Assigned' %}orange
+                {% elif task.status == 'In Progress' %}blue
+                {% elif task.status == 'Completed' %}green
+                {% endif %}
+            ">
+                {{ task.status }}
+            </span>
+        </p>
+
+        <!-- PROGRESS -->
+        <div class="info">
+            <b>Progress:</b> {{ task.progress }}%
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ task.progress }}%;">
+                    {{ task.progress }}%
+                </div>
+            </div>
+        </div>
+
+        <!-- BUTTONS -->
+        
+
+        <!-- 🔥 UPDATED PAYMENT BUTTON -->
+        <a href="#" onclick="openPaymentModal({{ task.id }}, {{ task.bid_amount }})" class="btn btn-green">
+            💸 Make/View Payment
+        </a>
+
+    </div>
+    {% endfor %}
+
+{% else %}
+    <p style="text-align:center;">No tasks assigned yet.</p>
+{% endif %}
+
+</div>
+
+<!-- ================= PAYMENT MODAL ================= -->
+<div id="paymentModal" style="
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.5);
+    justify-content:center;
+    align-items:center;
+">
+
+    <div style="
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        width:300px;
+        text-align:center;
+        position:relative;
+    ">
+
+        <span onclick="closeModal()" style="
+            position:absolute;
+            right:10px;
+            top:10px;
+            cursor:pointer;
+            font-size:20px;
+        ">✖</span>
+
+        <h3>Make Payment</h3>
+
+        <p><b>Bid Amount:</b> ₹<span id="bidAmount"></span></p>
+        <p><b>Total Paid:</b> ₹<span id="paidAmount">0</span></p>
+
+        <input type="text" placeholder="From UPI" style="width:100%; margin:5px 0; padding:8px;">
+        <input type="text" placeholder="To UPI" style="width:100%; margin:5px 0; padding:8px;">
+        <input type="number" id="payAmount" placeholder="Amount" style="width:100%; margin:5px 0; padding:8px;">
+
+        <button onclick="processPayment()" style="
+            width:100%;
+            padding:10px;
+            background:green;
+            color:white;
+            border:none;
+            border-radius:5px;
+            margin-top:10px;
+        ">
+            💳 Make Payment
+        </button>
+
+        <p id="paymentStatus" style="margin-top:10px;"></p>
+
+    </div>
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+let currentTaskId = null;
+
+function openPaymentModal(taskId, bidAmount) {
+    currentTaskId = taskId;
+
+    document.getElementById("paymentModal").style.display = "flex";
+    document.getElementById("bidAmount").innerText = bidAmount;
+
+    // 🔥 FETCH REAL TOTAL FROM DB
+    document.getElementById("paidAmount").innerText = "Loading...";
+
+    fetch(`/get_payment/${taskId}`)
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("paidAmount").innerText = data.total_paid;
+    });
+}
+
+function closeModal() {
+    document.getElementById("paymentModal").style.display = "none";
+}
+
+function processPayment() {
+    let amount = parseFloat(document.getElementById("payAmount").value);
+
+    if (!amount || amount <= 0) {
+        alert("Enter valid amount");
+        return;
+    }
+
+    document.getElementById("paymentStatus").innerText = "Processing Payment...";
+
+    fetch(`/make_payment/${currentTaskId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ amount: amount })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+
+            document.getElementById("paymentStatus").innerText = "✅ Payment Successful!";
+
+            // 🔥 REFRESH TOTAL FROM DB (IMPORTANT FIX)
+            fetch(`/get_payment/${currentTaskId}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("paidAmount").innerText = data.total_paid;
+            });
+
+            document.getElementById("payAmount").value = "";
+        }
+    });
+}
+</script>
+{% endblock %}

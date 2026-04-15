@@ -1,0 +1,61 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Type checkers / linters
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# Flask / local runtime files
+instance/
+.webassets-cache
+
+# Environment and secrets
+.env
+.env.*
+*.env
+*.sqlite3
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploaded/generated files
+app/static/uploads/*
+static/uploads/*
+
+# Keep upload directories if .gitkeep is present
+!app/static/uploads/.gitkeep
+!static/uploads/.gitkeep
+con

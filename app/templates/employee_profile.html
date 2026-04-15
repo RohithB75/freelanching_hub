@@ -1,0 +1,92 @@
+{% extends "employee_base.html" %}
+
+{% block content %}
+
+<style>
+    .profile-container {
+        width: 500px;
+        margin: 40px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .profile-header img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid #2c6bed;
+    }
+
+    .profile-header h3 {
+        margin: 0;
+    }
+
+    .role {
+        color: gray;
+    }
+
+    .section {
+        margin-top: 20px;
+    }
+
+    .btn {
+        margin-top: 15px;
+        padding: 10px;
+        background: #2c6bed;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #1a4ed8;
+    }
+</style>
+
+<h2 style="text-align:center; color:#2c6bed;">PROFILE</h2>
+
+<div class="profile-container">
+
+    <!-- ✅ PROFILE HEADER -->
+    <div class="profile-header">
+
+        {% if user.image %}
+            <img src="{{ url_for('static', filename='uploads/' + user.image) }}">
+        {% else %}
+            <img src="https://via.placeholder.com/100">
+        {% endif %}
+
+        <div>
+            <h3>{{ user.name }}</h3>
+            <p class="role">Employee</p>
+            <p>{{ user.gender }} | {{ user.phone }}</p>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <!-- ✅ CONTACT INFO -->
+    <div class="section">
+        <h4>Contact Info</h4>
+        <p><b>Email:</b> {{ user.email }}</p>
+        <p><b>Phone:</b> {{ user.phone }}</p>
+    </div>
+
+    <!-- ✅ BUTTON -->
+    <a href="{{ url_for('main.manage_profile') }}">
+        <button class="btn">Manage Profile</button>
+    </a>
+
+</div>
+
+{% endblock %}

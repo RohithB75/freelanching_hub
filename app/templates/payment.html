@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Payment</h2>
+
+<p>Total Bid: ₹{{ task[3] }}</p>
+<p>Total Paid: ₹{{ task[5] }}</p>
+
+<form method="POST">
+    <input type="text" name="from_upi" placeholder="From UPI">
+    <input type="text" name="to_upi" placeholder="To UPI">
+    <input type="number" name="amount" placeholder="Amount">
+
+    <button type="submit">Pay</button>
+</form>
+
+{% endblock %}

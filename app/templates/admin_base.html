@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .navbar {
+            background: #2f6fed;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .nav-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">FreelanceHub</div>
+
+    <div class="nav-links">
+        <a href="/addresources">Post Resource</a>
+        <a href="/viewresources">View Resources</a>
+        <a href="/admin_logout">Logout</a>
+    </div>
+</div>
+
+<div style="padding: 30px;">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

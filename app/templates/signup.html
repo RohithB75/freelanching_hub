@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .signup-container {
+        width: 100%;
+        max-width: 420px;
+        margin: 60px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .signup-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .signup-container input,
+    .signup-container select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .signup-container button {
+        width: 100%;
+        padding: 12px;
+        background: #28a745;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .signup-container button:hover {
+        background: #1e7e34;
+    }
+
+    .signup-container p {
+        text-align: center;
+        margin-top: 12px;
+    }
+
+    .signup-container a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .signup-container a:hover {
+        text-decoration: underline;
+    }
+
+    .error {
+        color: red;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="signup-container">
+    <h2>Create Account</h2>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <input type="text" name="name" placeholder="Full Name" required>
+        <select name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <select name="role" required>
+            <option value="">Select Role</option>
+            <option value="employer">Employer</option>
+            <option value="employee">Employee</option>
+        </select>
+
+        <input type="email" name="email" placeholder="Email Address" required>
+
+        <input type="text" name="phone" placeholder="Phone Number" required>
+
+        <input type="password" name="password" placeholder="Password" required>
+
+        <input type="file" name="image">
+
+        <button type="submit">Signup</button>
+
+    </form>
+
+    <p>Already have an account? <a href="/login">Login</a></p>
+</div>
+
+{% endblock %}

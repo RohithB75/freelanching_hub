@@ -1,0 +1,138 @@
+{% extends "employer_base.html" %}
+
+{% block content %}
+
+<style>
+    .post-container {
+        width: 500px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .post-container h2 {
+        text-align: center;
+        color: #2c6bed;
+        margin-bottom: 20px;
+    }
+
+    .post-container label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+    .post-container input,
+    .post-container textarea,
+    .post-container select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        font-size: 14px;
+    }
+
+    .post-container input:focus,
+    .post-container textarea:focus,
+    .post-container select:focus {
+        border-color: #2c6bed;
+    }
+
+    .post-container textarea {
+        resize: none;
+        height: 100px;
+    }
+
+    .post-container button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        background: #2c6bed;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .post-container button:hover {
+        background: #1a4ed8;
+    }
+
+    /* ✅ SUCCESS MESSAGE */
+    .success-msg {
+        background: #d4edda;
+        color: #155724;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .error-msg {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+<div class="post-container">
+
+    <h2>Post Project</h2>
+
+    <!-- ✅ FLASH MESSAGE -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="{{ 'success-msg' if category == 'success' else 'error-msg' }}">
+              {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- ✅ FORM (FIXED enctype) -->
+    <form method="POST" enctype="multipart/form-data">
+
+        <label>Project Title</label>
+        <input type="text" name="title" placeholder="Enter project title" required>
+
+        <label>Description</label>
+        <textarea name="description" placeholder="Describe your project..." required></textarea>
+
+        <label>Skills Required</label>
+        <input type="text" name="skills" placeholder="e.g. Python, Flask, AI" required>
+
+        <label>Budget</label>
+        <input type="number" name="budget" placeholder="Enter budget" required>
+
+        <label>Deadline</label>
+        <input type="date" name="deadline" required>
+
+        <label>Attach File (PDF)</label>
+        <input type="file" name="file" accept="application/pdf">
+
+        <button type="submit">Post Project</button>
+
+    </form>
+
+</div>
+
+<!-- ✅ AUTO HIDE MESSAGE -->
+<script>
+    setTimeout(() => {
+        const msg = document.querySelector('.success-msg, .error-msg');
+        if (msg) msg.style.display = 'none';
+    }, 3000);
+</script>
+
+{% endblock %}

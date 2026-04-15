@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Dashboard</title>
+</head>
+<body style="margin:0; font-family:Arial;">
+
+<!-- NAVBAR -->
+<div style="background:#2c6bed; padding:15px; color:white;">
+
+    <span style="font-weight:bold;">FreelanceHub</span>
+
+    <div style="float:right;">
+        <a href="{{ url_for('main.profile') }}" style="color:white; margin-right:15px;">Profile</a>
+        <a href="{{ url_for('main.post_project') }}" style="color:white; margin-right:15px;">Post Project</a>
+        <a href="{{ url_for('main.view_my_projects') }}" style="color:white; margin-right:15px;">View Posts</a>
+        <a href="{{ url_for('main.assigned_tasks') }}" style="color:white; margin-right:15px;">View Assigned Tasks</a>
+        <a href="{{ url_for('main.logout') }}" style="color:white;">Logout</a>
+    </div>
+
+</div>
+
+<!-- PAGE CONTENT -->
+<div style="padding:20px;">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

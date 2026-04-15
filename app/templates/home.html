@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="max-width: 1100px; margin: 40px auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 280px;">
+        <h1 style="font-size: 42px; margin: 0 0 12px; color: #1a2a52;">Welcome to FreelanceHub</h1>
+        <p style="font-size: 18px; color: #4d5c7b; line-height: 1.6; margin: 0;">
+            Find projects, hire talent, and manage work from one place.
+        </p>
+    </div>
+
+    <div style="flex: 1; min-width: 280px; text-align: center;">
+        <img
+            src="{{ url_for('static', filename='freelancing-hero.svg') }}"
+            alt="Freelancing team working together"
+            style="max-width: 100%; height: auto; border-radius: 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);"
+        >
+    </div>
+</div>
+
+{% endblock %}

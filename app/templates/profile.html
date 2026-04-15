@@ -1,0 +1,43 @@
+{% extends "employer_base.html" %}
+
+{% block content %}
+
+<h2 style="text-align:center; color:#2c6bed;">PROFILE</h2>
+<div style="width:500px; margin:auto; background:white; padding:20px; border-radius:10px; box-shadow:0px 0px 10px #ccc;">
+
+    <div style="display:flex; align-items:center;">
+
+        <!-- ✅ PROFILE IMAGE -->
+        {% if user.image %}
+            <img src="{{ url_for('static', filename='uploads/' + user.image) }}"
+                 width="100" height="100"
+                 style="border-radius:50%; margin-right:20px;">
+        {% else %}
+            <img src="https://via.placeholder.com/100"
+                 style="border-radius:50%; margin-right:20px;">
+        {% endif %}
+        
+        <div>
+            <h3>{{ user.name }}</h3>
+            <p>Employer</p>
+
+            <!-- gender | phone -->
+            <p>{{ user.gender }} | {{ user.phone }}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h4>Contact Info</h4>
+    <p><b>Email:</b> {{ user.email }}</p>
+    <p><b>Phone:</b> {{ user.phone }}</p>
+
+    <a href="{{ url_for('main.manage_profile') }}">
+        <button style="padding:10px; background:#2c6bed; color:white; border:none;">
+            Manage Profile
+        </button>
+    </a>
+
+</div>
+
+{% endblock %}
