@@ -2,20 +2,45 @@
 <html>
 <head>
     <title>Employer Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .navbar {
+            background: #2c6bed;
+            padding: 15px 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body style="margin:0; font-family:Arial;">
+<body>
 
 <!-- NAVBAR -->
-<div style="background:#2c6bed; padding:15px; color:white;">
+<div class="navbar">
 
     <span style="font-weight:bold;">FreelanceHub</span>
 
     <div style="float:right;">
-        <a href="{{ url_for('main.profile') }}" style="color:white; margin-right:15px;">Profile</a>
-        <a href="{{ url_for('main.post_project') }}" style="color:white; margin-right:15px;">Post Project</a>
-        <a href="{{ url_for('main.view_my_projects') }}" style="color:white; margin-right:15px;">View Posts</a>
-        <a href="{{ url_for('main.assigned_tasks') }}" style="color:white; margin-right:15px;">View Assigned Tasks</a>
-        <a href="{{ url_for('main.logout') }}" style="color:white;">Logout</a>
+        <a href="{{ url_for('main.profile') }}">Profile</a>
+        <a href="{{ url_for('main.post_project') }}">Post Project</a>
+        <a href="{{ url_for('main.view_my_projects') }}">View Posts</a>
+        <a href="{{ url_for('main.assigned_tasks') }}">View Assigned Tasks</a>
+        <a href="{{ url_for('main.logout') }}">Logout</a>
     </div>
 
 </div>
