@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, session, redirect, render_template
 from app import mysql  # make sure this matches your project structure
-from flask import flash, redirect, url_for
+from flask import flash, redirect, url_for,current_app
 from werkzeug.utils import secure_filename
 import os   
 
@@ -134,9 +134,6 @@ def signup():
 # ✅ TEST ROUTE
 # -------------------------------
 
-import os
-from werkzeug.utils import secure_filename
-from flask import current_app, flash
 
 @main.route('/post_project', methods=['GET', 'POST'])
 def post_project():
@@ -813,10 +810,6 @@ def logout():
     return redirect(url_for('main.home'))
 
 
-
-from flask import session, redirect, url_for, request, render_template, flash
-from werkzeug.security import generate_password_hash
-
 # ================= PROFILE =================
 @main.route('/profile')
 def profile():
@@ -856,9 +849,7 @@ def manage_profile():
 
         # 🔥 IMAGE UPDATE
         if image and image.filename != '':
-            from werkzeug.utils import secure_filename
-            from flask import current_app
-            import os
+            
 
             filename = secure_filename(image.filename)
 
